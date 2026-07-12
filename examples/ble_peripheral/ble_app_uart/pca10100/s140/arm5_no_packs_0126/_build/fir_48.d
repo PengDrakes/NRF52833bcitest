@@ -1,0 +1,11 @@
+.\_build\fir_48.o: fir_48.c
+.\_build\fir_48.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\fir_48.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\string.h
+.\_build\fir_48.o: fir_48.h
+.\_build\fir_48.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_math.h
+.\_build\fir_48.o: D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
+.\_build\fir_48.o: D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
+.\_build\fir_48.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\math.h
+.\_build\fir_48.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\float.h
+.\_build\fir_48.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_const_structs.h
+.\_build\fir_48.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_common_tables.h

@@ -1,0 +1,15 @@
+#ifndef __bpm_H
+#define __bpm_H
+
+
+#include "arm_math.h"
+#include "arm_const_structs.h"
+#include "arm_common_tables.h"
+#include "findpeaks.h"
+
+#define FPS 250
+
+int32_t bpm_calculate(int32_t *location,int32_t size);
+
+
+#endif //__bpm_H

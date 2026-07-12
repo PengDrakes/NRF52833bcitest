@@ -1,0 +1,12 @@
+.\_build\bpm.o: ..\arm5_no_packs_0126\bpm.c
+.\_build\bpm.o: ..\arm5_no_packs_0126\bpm.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_math.h
+.\_build\bpm.o: E:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
+.\_build\bpm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\bpm.o: E:\Keil_v5\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
+.\_build\bpm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\bpm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\_build\bpm.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_const_structs.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_common_tables.h
+.\_build\bpm.o: ..\arm5_no_packs_0126\findpeaks.h

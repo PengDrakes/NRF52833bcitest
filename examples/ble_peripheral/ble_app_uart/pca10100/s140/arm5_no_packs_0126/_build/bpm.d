@@ -1,0 +1,12 @@
+.\_build\bpm.o: bpm.c
+.\_build\bpm.o: bpm.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_math.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\stdint.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\string.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\math.h
+.\_build\bpm.o: D:\Shawshihe\KEIL\ARM\ARMCC\Bin\..\include\float.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_const_structs.h
+.\_build\bpm.o: ..\..\..\..\..\..\components\toolchain\cmsis\dsp\Include\arm_common_tables.h
+.\_build\bpm.o: findpeaks.h

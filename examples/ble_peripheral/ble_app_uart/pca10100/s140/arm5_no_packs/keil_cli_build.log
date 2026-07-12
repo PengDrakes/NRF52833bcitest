@@ -1,0 +1,114 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'nrf52833_xxaa'
+compiling list.c...
+compiling heap_4.c...
+compiling port.c...
+compiling port_cmsis.c...
+compiling timers.c...
+compiling queue.c...
+compiling tasks.c...
+compiling port_cmsis_systick.c...
+compiling QMI8658C.c...
+compiling ads1292.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ads1292.c(137): warning:  #177-D: variable "read_loff_cmd"  was declared but never referenced
+  		uint8_t read_loff_cmd[]={0x23,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(140): warning:  #177-D: variable "read_rldsens_cmd"  was declared but never referenced
+  		uint8_t read_rldsens_cmd[]={0x26,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(141): warning:  #177-D: variable "read_loffsens_cmd"  was declared but never referenced
+  		uint8_t read_loffsens_cmd[]={0x27,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(142): warning:  #177-D: variable "read_loffstat_cmd"  was declared but never referenced
+  		uint8_t read_loffstat_cmd[]={0x28,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(143): warning:  #177-D: variable "read_resp1_cmd"  was declared but never referenced
+  		uint8_t read_resp1_cmd[]={0x29,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(144): warning:  #177-D: variable "read_resp2_cmd"  was declared but never referenced
+  		uint8_t read_resp2_cmd[]={0x2A,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(145): warning:  #177-D: variable "read_gpio_cmd"  was declared but never referenced
+  		uint8_t read_gpio_cmd[]={0x2B,0x00,0x00};
+..\arm5_no_packs_0126\ads1292.c(230): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	*a1 = 180.0/(max_init_val-min_init_val);
+..\arm5_no_packs_0126\ads1292.c(274): warning:  #188-D: enumerated type mixed with another type
+  						.frequency    = NRF_SPI_FREQ_250K,                     
+..\arm5_no_packs_0126\ads1292.c(390): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											data1[init_index] = ch_v[0]*1000000*1.0;  
+..\arm5_no_packs_0126\ads1292.c(391): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  											data2[init_index] = ch_v[1]*1000000*1.0;     
+..\arm5_no_packs_0126\ads1292.c(312): warning:  #177-D: variable "ret"  was declared but never referenced
+      int ret = 0;
+..\arm5_no_packs_0126\ads1292.c: 13 warnings, 0 errors
+compiling spo2.c...
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAX30102_FIR_H */
+..\arm5_no_packs_0126\spo2.c(340): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return ((-45.060)*R*R + 30.354*R + 94.845);
+..\arm5_no_packs_0126\spo2.c: 3 warnings, 0 errors
+compiling ecg.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.c(168): warning:  #177-D: variable "breath_rate"  was declared but never referenced
+  		int32_t breath_rate;
+..\arm5_no_packs_0126\ecg.c(295): warning:  #177-D: variable "n"  was declared but never referenced
+  		static uint16_t j,mid_filt_num,n;
+..\arm5_no_packs_0126\ecg.c(48): warning:  #177-D: variable "bpm_cache1"  was declared but never referenced
+  static int32_t bpm_cache1[BMP_CACHE_SIZE]; 
+..\arm5_no_packs_0126\ecg.c(67): warning:  #177-D: variable "bpm"  was declared but never referenced
+  static int32_t bpm;                          //心率数值
+..\arm5_no_packs_0126\ecg.c(75): warning:  #550-D: variable "breath_freauence"  was set but never used
+  static int32_t breath_freauence;                          //呼吸频率
+..\arm5_no_packs_0126\ecg.c: 10 warnings, 0 errors
+compiling bluetooth.c...
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\bluetooth.c(942): warning:  #177-D: variable "erase_bonds"  was declared but never referenced
+      bool erase_bonds;
+..\arm5_no_packs_0126\bluetooth.c: 5 warnings, 0 errors
+compiling main.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\low_power_mode.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\..\main.c: 8 warnings, 0 errors
+compiling rtc.c...
+..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\rtc.c(168): warning:  #177-D: variable "seconds"  was declared but never referenced
+  		uint8_t seconds[1];		
+..\arm5_no_packs_0126\rtc.c(210): warning:  #177-D: variable "part_id"  was declared but never referenced
+      uint8_t part_id = 0;
+..\arm5_no_packs_0126\rtc.c(211): warning:  #177-D: variable "ret"  was declared but never referenced
+      ret_code_t ret;
+..\arm5_no_packs_0126\rtc.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=40416 RO-data=4104 RW-data=672 ZI-data=89512  
+FromELF: creating hex file...
+".\_build\nrf52833_xxaa.axf" - 0 Error(s), 43 Warning(s).
+Build Time Elapsed:  00:00:09

@@ -1,0 +1,17 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'nrf52833_xxaa'
+compiling spo2.c...
+..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
+  #define NRFX_TWIM1_ENABLED 1
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAX30102_FIR_H */
+..\arm5_no_packs_0126\spo2.c(340): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			return ((-45.060)*R*R + 30.354*R + 94.845);
+..\arm5_no_packs_0126\spo2.c: 4 warnings, 0 errors
+linking...
+Program Size: Code=39504 RO-data=4056 RW-data=672 ZI-data=81176  
+FromELF: creating hex file...
+".\_build\nrf52833_xxaa.axf" - 0 Error(s), 4 Warning(s).
+Build Time Elapsed:  00:00:06
