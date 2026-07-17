@@ -7,6 +7,8 @@
 #include "app_error.h"
 #include <string.h>
 #include <stdint.h>
+#include <stdarg.h>
+#include <stdio.h>
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
@@ -25,6 +27,7 @@
 #include "info_collect.h"
 #include "low_power_mode.h"
 #include "semphr.h"
+#include "debug_print.h"
 
 #if 1
 
@@ -34,32 +37,101 @@
 #define QMI_TASK_STACK_WORDS       256U
 #define ADS_TASK_STACK_WORDS       384U
 
+#define FAULT_MARKER_HARDFAULT     0xA1U
+#define FAULT_MARKER_APP_ERROR     0xA2U
+#define FAULT_MARKER_STACK         0xA3U
+#define FAULT_MARKER_MALLOC        0xA4U
+
 
 SemaphoreHandle_t print_mutex = NULL;
+extern volatile uint8_t g_last_ble_event;
 
-void vApplicationStackOverflowHook(TaskHandle_t task, char *task_name)
+static void fatal_reset(uint8_t marker)
 {
-    (void)task;
-    printf("FATAL stack overflow: %s\r\n", task_name != NULL ? task_name : "unknown");
-    taskDISABLE_INTERRUPTS();
+    __disable_irq();
+    /* At runtime BLE callbacks only update RAM. Copy the final context to the
+     * retention register here, after a fatal path has already been entered. */
+    NRF_POWER->GPREGRET2 = g_last_ble_event;
+    NRF_POWER->GPREGRET = marker;
+    __DSB();
+    NVIC_SystemReset();
+
     for (;;)
     {
     }
 }
 
+void HardFault_Handler(void)
+{
+    fatal_reset(FAULT_MARKER_HARDFAULT);
+}
+
+void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
+{
+    (void)id;
+    (void)pc;
+    (void)info;
+    fatal_reset(FAULT_MARKER_APP_ERROR);
+}
+
+static void report_previous_fault(void)
+{
+    uint8_t marker = (uint8_t)NRF_POWER->GPREGRET;
+    uint8_t last_ble_event = (uint8_t)NRF_POWER->GPREGRET2;
+
+    NRF_POWER->GPREGRET = 0U;
+    NRF_POWER->GPREGRET2 = 0U;
+
+    if (marker != 0U)
+    {
+        printf("PREV FATAL marker=0x%02X last_ble=0x%02X\r\n",
+               marker,
+               last_ble_event);
+    }
+}
+
+int debug_printf(const char *format, ...)
+{
+    va_list args;
+    int result;
+    BaseType_t locked = pdFALSE;
+    bool task_context = ((SCB->ICSR & SCB_ICSR_VECTACTIVE_Msk) == 0U);
+
+    if ((print_mutex != NULL) &&
+        task_context &&
+        (xTaskGetSchedulerState() == taskSCHEDULER_RUNNING))
+    {
+        locked = xSemaphoreTakeRecursive(print_mutex, portMAX_DELAY);
+    }
+
+    va_start(args, format);
+    result = vprintf(format, args);
+    va_end(args);
+
+    if (locked == pdTRUE)
+    {
+        (void)xSemaphoreGiveRecursive(print_mutex);
+    }
+
+    return result;
+}
+
+void vApplicationStackOverflowHook(TaskHandle_t task, char *task_name)
+{
+    (void)task;
+    (void)task_name;
+    fatal_reset(FAULT_MARKER_STACK);
+}
+
 void vApplicationMallocFailedHook(void)
 {
-    printf("FATAL FreeRTOS malloc failed, free=%lu\r\n",
-           (unsigned long)xPortGetFreeHeapSize());
-    taskDISABLE_INTERRUPTS();
-    for (;;)
-    {
-    }
+    fatal_reset(FAULT_MARKER_MALLOC);
 }
 
 
 int main (void){
 		uart_init();
+		report_previous_fault();
 
 		for (uint8_t i = 0; i < 5; i++)
 		{
@@ -69,7 +141,7 @@ int main (void){
 
 		printf("enter int main \r\n");
 	
-	print_mutex = xSemaphoreCreateMutex();
+	print_mutex = xSemaphoreCreateRecursiveMutex();
 		
 		if (print_mutex == NULL)
     {
@@ -142,24 +214,24 @@ int main (void){
 //        printf("\r\nSpo2 task created.\r\n");
 //    }
 
-BaseType_t err_spo2 = xTaskCreate(
-        spo2_read,
-        "spo2_thread",
-        SPO2_TASK_STACK_WORDS,
-        NULL,
-        4,
-        NULL
-);
+//BaseType_t err_spo2 = xTaskCreate(
+//        spo2_read,
+//        "spo2_thread",
+//        SPO2_TASK_STACK_WORDS,
+//        NULL,
+//        4,
+//        NULL
+//);
 
-if (err_spo2 != pdPASS)
-{
-    printf("\r\nSpo2 task not created.\r\n");
-    APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
-}
-else
-{
-    printf("\r\nSpo2 task created.\r\n");
-}
+//if (err_spo2 != pdPASS)
+//{
+//    printf("\r\nSpo2 task not created.\r\n");
+//    APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+//}
+//else
+//{
+//    printf("\r\nSpo2 task created.\r\n");
+//}
 
 //		BaseType_t err5 = xTaskCreate(
 //					ble_thread,           
@@ -203,19 +275,19 @@ else
 //        APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
 //    }
 		
-//	BaseType_t err_qmi = xTaskCreate(
-//				qmi8658c_read,
-//				"qmi8658c_thread",
-//				QMI_TASK_STACK_WORDS,
-//				NULL,
-//				5,
-//				NULL
-//	);
-//	if (err_qmi != pdPASS)
-//	{
-//			printf("\r\nQMI task not created.\r\n");
-//			APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
-//	}
+	BaseType_t err_qmi = xTaskCreate(
+				qmi8658c_read,
+				"qmi8658c_thread",
+				QMI_TASK_STACK_WORDS,
+				NULL,
+				5,
+				NULL
+	);
+	if (err_qmi != pdPASS)
+	{
+			printf("\r\nQMI task not created.\r\n");
+			APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+	}
 	
 	BaseType_t err_ads = xTaskCreate(
         spi_read,
