@@ -10,6 +10,7 @@
 #include "nrf_drv_twi.h"
 #include "QMI8658C.h"
 #include "task.h"
+#include "../../../debug_print.h"
 
 #define QMI8658C_ADDR           0x6B
 #define QMI8658C_WHO_AM_I_REG   0x00

@@ -1,0 +1,66 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'nrf52833_xxaa'
+compiling QMI8658C.c...
+compiling spo2.c...
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAX30102_FIR_H */
+..\arm5_no_packs_0126\spo2.c: 2 warnings, 0 errors
+compiling ecg.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.c(168): warning:  #177-D: variable "breath_rate"  was declared but never referenced
+  		int32_t breath_rate;
+..\arm5_no_packs_0126\ecg.c(295): warning:  #177-D: variable "n"  was declared but never referenced
+  		static uint16_t j,mid_filt_num,n;
+..\arm5_no_packs_0126\ecg.c(48): warning:  #177-D: variable "bpm_cache1"  was declared but never referenced
+  static int32_t bpm_cache1[BMP_CACHE_SIZE]; 
+..\arm5_no_packs_0126\ecg.c(67): warning:  #177-D: variable "bpm"  was declared but never referenced
+  static int32_t bpm;                          //心率数值
+..\arm5_no_packs_0126\ecg.c(75): warning:  #550-D: variable "breath_freauence"  was set but never used
+  static int32_t breath_freauence;                          //呼吸频率
+..\arm5_no_packs_0126\ecg.c: 10 warnings, 0 errors
+compiling bluetooth.c...
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\../arm5_no_packs/attention.h(235): warning:  #1-D: last line of file ends without a newline
+  #endif /* __ATTENTION_H__ */
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\bluetooth.c: 5 warnings, 0 errors
+compiling main.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\low_power_mode.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\..\main.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=47856 RO-data=83948 RW-data=724 ZI-data=67636  
+FromELF: creating hex file...
+".\_build\nrf52833_xxaa.axf" - 0 Error(s), 25 Warning(s).
+Build Time Elapsed:  00:00:09

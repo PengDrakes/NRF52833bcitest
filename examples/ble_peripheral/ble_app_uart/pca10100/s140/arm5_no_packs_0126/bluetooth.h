@@ -2,7 +2,7 @@
 #define __bluetooth_H
 
 /* Keep the focus firmware's NUS TX stream limited to attention frames. */
-#define BLE_STREAM_ATTENTION_ONLY 1
+#define BLE_STREAM_ATTENTION_ONLY 0
 
 #include <stdint.h>
 #include <string.h>

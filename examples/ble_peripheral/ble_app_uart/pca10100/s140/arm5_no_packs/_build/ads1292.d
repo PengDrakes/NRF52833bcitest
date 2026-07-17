@@ -69,3 +69,4 @@
 .\_build\ads1292.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\float.h
 .\_build\ads1292.o: attention.h
 .\_build\ads1292.o: ..\..\..\..\..\..\components\libraries\delay\nrf_delay.h
+.\_build\ads1292.o: ../../../debug_print.h

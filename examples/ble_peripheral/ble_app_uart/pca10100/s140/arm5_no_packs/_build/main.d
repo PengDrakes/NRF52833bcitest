@@ -56,6 +56,7 @@
 .\_build\main.o: ..\..\..\..\..\..\components\boards\boards.h
 .\_build\main.o: ..\..\..\..\..\..\components\boards\pca10100.h
 .\_build\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\_build\main.o: E:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\log\nrf_log.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_common.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_os.h
@@ -143,3 +144,4 @@
 .\_build\main.o: ..\arm5_no_packs_0126\info_collect.h
 .\_build\main.o: ..\arm5_no_packs_0126\low_power_mode.h
 .\_build\main.o: ..\..\..\..\..\..\external\freertos\source\include\semphr.h
+.\_build\main.o: ..\..\..\debug_print.h

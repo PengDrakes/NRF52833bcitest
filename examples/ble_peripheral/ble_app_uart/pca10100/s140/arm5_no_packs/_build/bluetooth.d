@@ -127,3 +127,4 @@
 .\_build\bluetooth.o: ..\..\..\..\..\..\modules\nrfx\hal\nrf_uarte.h
 .\_build\bluetooth.o: ..\arm5_no_packs_0126\QMI8658C.h
 .\_build\bluetooth.o: ..\arm5_no_packs_0126\info_collect.h
+.\_build\bluetooth.o: ..\arm5_no_packs_0126\../../../debug_print.h

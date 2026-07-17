@@ -1,0 +1,39 @@
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'nrf52833_xxaa'
+compiling bluetooth.c...
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\../arm5_no_packs/attention.h(235): warning:  #1-D: last line of file ends without a newline
+  #endif /* __ATTENTION_H__ */
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\bluetooth.c(1091): warning:  #177-D: variable "erase_bonds"  was declared but never referenced
+      bool erase_bonds;
+..\arm5_no_packs_0126\bluetooth.c: 6 warnings, 0 errors
+compiling main.c...
+..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\low_power_mode.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\..\main.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=48048 RO-data=83996 RW-data=732 ZI-data=67652  
+FromELF: creating hex file...
+".\_build\nrf52833_xxaa.axf" - 0 Error(s), 14 Warning(s).
+Build Time Elapsed:  00:00:06

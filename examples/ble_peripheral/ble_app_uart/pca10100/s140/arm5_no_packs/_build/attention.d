@@ -44,3 +44,4 @@
 .\_build\attention.o: ..\..\..\..\..\..\external\freertos\source\include\task.h
 .\_build\attention.o: ..\..\..\..\..\..\external\freertos\source\include\list.h
 .\_build\attention.o: ..\..\..\..\..\..\external\freertos\source\include\queue.h
+.\_build\attention.o: ../../../debug_print.h

@@ -104,3 +104,4 @@
 .\_build\qmi8658c.o: ..\arm5_no_packs_0126\QMI8658C.h
 .\_build\qmi8658c.o: ..\..\..\..\..\..\external\freertos\source\include\task.h
 .\_build\qmi8658c.o: ..\..\..\..\..\..\external\freertos\source\include\list.h
+.\_build\qmi8658c.o: ..\arm5_no_packs_0126\../../../debug_print.h

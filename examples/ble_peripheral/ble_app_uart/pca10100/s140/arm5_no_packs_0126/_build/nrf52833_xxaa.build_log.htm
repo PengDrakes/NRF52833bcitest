@@ -3,13 +3,13 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: μVision V5.32.0.0
-Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: shjdll 3232036959@qq.com, dsdcls, LIC=WHYH9-4PP1V-LQ00Q-NEXVG-T05QW-NRN2S
+IDE-Version: μVision V5.43.1.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: L WP, mit, LIC=9WSKC-7KQ9E-74XS0-BDSAH-8JHC3-V36MI
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.32.0.0
-Toolchain Path:  D:\Shawshihe\KEIL\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Plus  Version: 5.43.0.0
+Toolchain Path:  E:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 7 (build 960)
 Assembler:       Armasm.exe V5.06 update 7 (build 960)
 Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
@@ -17,46 +17,108 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         
 Dialog DLL:      
-Target DLL:      Segger\JL2CM3.dll V2.99.38.0
-Dialog DLL:      TCM.DLL V1.46.0.0
+Target DLL:      Segger\JL2CM3.dll V2.99.45.0
+Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
-D:\APP_Collection\nRF5_SDK_17.1.0_ddde560 - 副本\examples\ble_peripheral\ble_app_uart\pca10100\s140\arm5_no_packs_0126\ble_app_uart_pca10100_s140.uvprojx
-Project File Date:  03/30/2026
+E:\naodian\nRF5_SDK_17.1.0_ddde560 - threads_1\nRF5_SDK_17.1.0_ddde560 - threads\examples\ble_peripheral\ble_app_uart\pca10100\s140\arm5_no_packs_0126\ble_app_uart_pca10100_s140.uvprojx
+Project File Date:  07/13/2026
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Shawshihe\KEIL\ARM\ARMCC\Bin'
-Build target 'nrf52833_xxaa'
-Note: source file '..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_spi.c' - object file renamed from '.\_build\nrf_drv_spi.o' to '.\_build\nrf_drv_spi_1.o'.
-Note: source file '..\..\..\..\..\..\integration\nrfx\legacy\nrf_drv_twi.c' - object file renamed from '.\_build\nrf_drv_twi.o' to '.\_build\nrf_drv_twi_1.o'.
-Note: source file '..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twi.c' - object file renamed from '.\_build\nrfx_twi.o' to '.\_build\nrfx_twi_1.o'.
-Note: source file '..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twim.c' - object file renamed from '.\_build\nrfx_twim.o' to '.\_build\nrfx_twim_1.o'.
-Note: source file '..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_twis.c' - object file renamed from '.\_build\nrfx_twis.o' to '.\_build\nrfx_twis_1.o'.
-compiling QMI8658C.c...
-..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
-  #define NRFX_TWIM1_ENABLED 1
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'nrf52833_xxaa'
+compiling findpeaks.c...
+findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+findpeaks.c: 1 warning, 0 errors
+compiling fir_48.c...
+fir_48.c(26): warning:  #177-D: variable "i"  was declared but never referenced
+      uint32_t i;
+fir_48.c: 1 warning, 0 errors
+compiling midfilt.c...
+findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+midfilt.c(46): warning:  #1-D: last line of file ends without a newline
+  }
+midfilt.c: 3 warnings, 0 errors
+compiling bpm.c...
+findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+bpm.c: 1 warning, 0 errors
+compiling max30102_fir.c...
+max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAX30102_FIR_H */
+max30102_fir.c: 1 warning, 0 errors
+compiling list.c...
+compiling port.c...
+compiling port_cmsis.c...
+compiling heap_4.c...
+compiling timers.c...
+compiling queue.c...
+compiling low_power.c...
+compiling infor_collect.c...
+compiling low_power_mode.c...
+low_power_mode.c(77): warning:  #1-D: last line of file ends without a newline
+  //}
+low_power_mode.c: 1 warning, 0 errors
+compiling tasks.c...
+compiling utf.c...
+compiling port_cmsis_systick.c...
+compiling ads1292.c...
+ads1292.c(355): warning:  #188-D: enumerated type mixed with another type
+      spi_config.frequency    = NRF_SPI_FREQ_250K;
+ads1292.c: 1 warning, 0 errors
+compiling ecg.c...
+compiling attention.c...
+..\arm5_no_packs\attention.h(235): warning:  #1-D: last line of file ends without a newline
+  #endif /* __ATTENTION_H__ */
+..\arm5_no_packs\attention.c(2580): warning:  #1-D: last line of file ends without a newline
+  }
+..\arm5_no_packs\attention.c(274): warning:  #550-D: variable "s_filtseq_printed"  was set but never used
+  static uint32_t s_filtseq_printed = 0U;
+..\arm5_no_packs\attention.c(377): warning:  #177-D: function "attention_power_permille"  was declared but never referenced
+  static long attention_power_permille(
+..\arm5_no_packs\attention.c: 4 warnings, 0 errors
+compiling ble_advdata.c...
+compiling boards.c...
+compiling spo2.c...
 spo2.h(64): warning:  #1-D: last line of file ends without a newline
   #endif
-QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
+max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif /* __MAX30102_FIR_H */
+spo2.c: 2 warnings, 0 errors
+compiling ble_advertising.c...
+compiling bluetooth.c...
+spo2.h(64): warning:  #1-D: last line of file ends without a newline
   #endif
-QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
+../arm5_no_packs/attention.h(235): warning:  #1-D: last line of file ends without a newline
+  #endif /* __ATTENTION_H__ */
+info_collect.h(23): warning:  #1-D: last line of file ends without a newline
   #endif
-QMI8658C.c(190): warning:  #177-D: variable "fifo"  was declared but never referenced
-  		uint8_t fifo[1];
-QMI8658C.c(246): warning:  #177-D: variable "part_id"  was declared but never referenced
-      uint8_t part_id = 0;
-QMI8658C.c(247): warning:  #177-D: variable "ret"  was declared but never referenced
-      ret_code_t ret;
-QMI8658C.c(279): warning:  #177-D: variable "statusint"  was declared but never referenced
-  		uint8_t statusint[1];  	
-QMI8658C.c(280): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp[2];
-QMI8658C.c(282): warning:  #177-D: variable "dqdata"  was declared but never referenced
-  		uint8_t dqdata[8];
-QMI8658C.c: 10 warnings, 0 errors
+bluetooth.c(1052): warning:  #177-D: variable "erase_bonds"  was declared but never referenced
+      bool erase_bonds;
+bluetooth.c: 4 warnings, 0 errors
+compiling bsp.c...
+compiling bsp_btn_ble.c...
+compiling ble_conn_params.c...
+compiling QMI8658C.c...
+compiling main.c...
+..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
+  #endif  //__findpeaks_H
+..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
+  #endif //__medfilt_H
+..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\arm5_no_packs_0126\low_power_mode.h(7): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\..\..\main.c: 6 warnings, 0 errors
 compiling rtc.c...
-..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
-  #define NRFX_TWIM1_ENABLED 1
 rtc.h(59): warning:  #1-D: last line of file ends without a newline
   #endif
 rtc.c(168): warning:  #177-D: variable "seconds"  was declared but never referenced
@@ -65,160 +127,113 @@ rtc.c(210): warning:  #177-D: variable "part_id"  was declared but never referen
       uint8_t part_id = 0;
 rtc.c(211): warning:  #177-D: variable "ret"  was declared but never referenced
       ret_code_t ret;
-rtc.c: 5 warnings, 0 errors
-compiling spo2.c...
-..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
-  #define NRFX_TWIM1_ENABLED 1
-spo2.h(64): warning:  #1-D: last line of file ends without a newline
-  #endif
-max30102_fir.h(11): warning:  #1-D: last line of file ends without a newline
-  #endif /* __MAX30102_FIR_H */
-spo2.c(349): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			return ((-45.060)*R*R + 30.354*R + 94.845);
-spo2.c: 4 warnings, 0 errors
-compiling ecg.c...
-bluetooth.h(88): warning:  #1-D: last line of file ends without a newline
-  #endif
-ads1292.h(34): warning:  #1-D: last line of file ends without a newline
-  #endif
-findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif  //__findpeaks_H
-midfilt.h(18): warning:  #1-D: last line of file ends without a newline
-  #endif //__medfilt_H
-spo2.h(64): warning:  #1-D: last line of file ends without a newline
-  #endif
-ecg.h(18): warning:  #1-D: last line of file ends without a newline
-  #endif
-ecg.c(168): warning:  #177-D: variable "breath_rate"  was declared but never referenced
-  		int32_t breath_rate;
-ecg.c(295): warning:  #177-D: variable "n"  was declared but never referenced
-  		static uint16_t j,mid_filt_num,n;
-ecg.c(48): warning:  #177-D: variable "bpm_cache1"  was declared but never referenced
-  static int32_t bpm_cache1[BMP_CACHE_SIZE]; 
-ecg.c(67): warning:  #177-D: variable "bpm"  was declared but never referenced
-  static int32_t bpm;                          //心率数值
-ecg.c(75): warning:  #550-D: variable "breath_freauence"  was set but never used
-  static int32_t breath_freauence;                          //呼吸频率
-ecg.c: 11 warnings, 0 errors
-compiling ads1292.c...
-bluetooth.h(88): warning:  #1-D: last line of file ends without a newline
-  #endif
-ads1292.h(34): warning:  #1-D: last line of file ends without a newline
-  #endif
-ads1292.c(137): warning:  #177-D: variable "read_loff_cmd"  was declared but never referenced
-  		uint8_t read_loff_cmd[]={0x23,0x00,0x00};
-ads1292.c(140): warning:  #177-D: variable "read_rldsens_cmd"  was declared but never referenced
-  		uint8_t read_rldsens_cmd[]={0x26,0x00,0x00};
-ads1292.c(141): warning:  #177-D: variable "read_loffsens_cmd"  was declared but never referenced
-  		uint8_t read_loffsens_cmd[]={0x27,0x00,0x00};
-ads1292.c(142): warning:  #177-D: variable "read_loffstat_cmd"  was declared but never referenced
-  		uint8_t read_loffstat_cmd[]={0x28,0x00,0x00};
-ads1292.c(143): warning:  #177-D: variable "read_resp1_cmd"  was declared but never referenced
-  		uint8_t read_resp1_cmd[]={0x29,0x00,0x00};
-ads1292.c(144): warning:  #177-D: variable "read_resp2_cmd"  was declared but never referenced
-  		uint8_t read_resp2_cmd[]={0x2A,0x00,0x00};
-ads1292.c(145): warning:  #177-D: variable "read_gpio_cmd"  was declared but never referenced
-  		uint8_t read_gpio_cmd[]={0x2B,0x00,0x00};
-ads1292.c(230): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	*a1 = 180.0/(max_init_val-min_init_val);
-ads1292.c(274): warning:  #188-D: enumerated type mixed with another type
-  						.frequency    = NRF_SPI_FREQ_250K,                     
-ads1292.c(390): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  											data1[init_index] = ch_v[0]*1000000*1.0;  
-ads1292.c(391): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  											data2[init_index] = ch_v[1]*1000000*1.0;     
-ads1292.c(312): warning:  #177-D: variable "ret"  was declared but never referenced
-      int ret = 0;
-ads1292.c: 14 warnings, 0 errors
-compiling bluetooth.c...
-bluetooth.h(88): warning:  #1-D: last line of file ends without a newline
-  #endif
-spo2.h(64): warning:  #1-D: last line of file ends without a newline
-  #endif
-ecg.h(18): warning:  #1-D: last line of file ends without a newline
-  #endif
-ads1292.h(34): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
-  #define NRFX_TWIM1_ENABLED 1
-QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
-  #endif
-QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
-  #endif
-info_collect.h(23): warning:  #1-D: last line of file ends without a newline
-  #endif
-bluetooth.c(908): warning:  #177-D: variable "erase_bonds"  was declared but never referenced
-      bool erase_bonds;
-bluetooth.c: 9 warnings, 0 errors
-compiling boards.c...
-compiling main.c...
-..\arm5_no_packs_0126\bluetooth.h(88): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\ads1292.h(34): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\findpeaks.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif  //__findpeaks_H
-..\arm5_no_packs_0126\midfilt.h(18): warning:  #1-D: last line of file ends without a newline
-  #endif //__medfilt_H
-..\arm5_no_packs_0126\ecg.h(18): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\spo2.h(64): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\..\..\..\..\modules\nrfx\drivers\include\nrfx_twim.h(73): warning:  #47-D: incompatible redefinition of macro "NRFX_TWIM1_ENABLED"  (declared at line 1157 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
-  #define NRFX_TWIM1_ENABLED 1
-..\arm5_no_packs_0126\QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\QMI8658C.h(65): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\rtc.h(59): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\info_collect.h(23): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\arm5_no_packs_0126\low_power_mode.h(7): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\..\main.c: 12 warnings, 0 errors
-compiling bsp.c...
-compiling bsp_btn_ble.c...
+rtc.c: 4 warnings, 0 errors
+compiling ble_conn_state.c...
+compiling ble_link_ctx_manager.c...
+compiling ble_srv_common.c...
+compiling nrf_ble_gatt.c...
+compiling nrf_ble_qwr.c...
+compiling ble_nus.c...
+compiling nrf_drv_power.c...
+compiling nrf_drv_rng.c...
+compiling nrfx_atomic.c...
+compiling nrf_drv_uart.c...
+compiling nrf_drv_clock.c...
+compiling nrfx_prs.c...
+compiling nrfx_clock.c...
+compiling nrfx_gpiote.c...
+compiling nrfx_uart.c...
+compiling nrfx_uarte.c...
+compiling nrf_drv_spi.c...
+compiling app_error.c...
+compiling nrfx_spim.c...
+compiling nrf_drv_twi.c...
+compiling app_error_handler_keil.c...
+compiling nrfx_twi.c...
+compiling app_fifo.c...
+compiling nrfx_twis.c...
+compiling app_scheduler.c...
+compiling app_error_weak.c...
+compiling nrfx_rtc.c...
+..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c(42): warning:  #47-D: incompatible redefinition of macro "NRFX_RTC_ENABLED"  (declared at line 712 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
+  #define NRFX_RTC_ENABLED 1
+..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c(43): warning:  #47-D: incompatible redefinition of macro "NRFX_RTC0_ENABLED"  (declared at line 716 of "..\..\..\..\..\..\integration\nrfx\legacy/apply_old_config.h")
+  #define NRFX_RTC0_ENABLED 1
+..\..\..\..\..\..\modules\nrfx\drivers\src\nrfx_rtc.c: 2 warnings, 0 errors
+compiling app_util_platform.c...
+compiling nrfx_twim.c...
+compiling app_button.c...
+compiling nrf_assert.c...
+compiling app_timer2.c...
+compiling app_uart_fifo.c...
+compiling hardfault_implementation.c...
+compiling nrf_atflags.c...
+compiling nrf_atfifo.c...
+compiling nrf_fprintf.c...
+compiling nrf_atomic.c...
+compiling nrf_balloc.c...
+compiling nrf_fprintf_format.c...
+compiling drv_rtc.c...
+compiling SEGGER_RTT_Syscalls_KEIL.c...
+compiling nrf_memobj.c...
+compiling nrf_section_iter.c...
+compiling nrf_ringbuf.c...
+compiling nrf_strerror.c...
+compiling nrf_sortlist.c...
+assembling arm_startup_nrf52833.s...
+compiling retarget.c...
+compiling nrf_pwr_mgmt.c...
+compiling nrf_log_backend_serial.c...
+compiling nrf_log_default_backends.c...
+compiling SEGGER_RTT.c...
+compiling SEGGER_RTT_printf.c...
+compiling nrf_log_frontend.c...
+compiling nrf_log_str_formatter.c...
+compiling system_nrf52.c...
+compiling nrf_log_backend_rtt.c...
+compiling nrf_sdh_soc.c...
+compiling nrf_sdh_ble.c...
+compiling nrf_sdh.c...
 linking...
-Program Size: Code=29692 RO-data=3248 RW-data=644 ZI-data=14628  
+Program Size: Code=43824 RO-data=4196 RW-data=856 ZI-data=64472  
 FromELF: creating hex file...
-".\_build\nrf52833_xxaa.axf" - 0 Error(s), 65 Warning(s).
+".\_build\nrf52833_xxaa.axf" - 0 Error(s), 31 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
                 http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
-                ARM.CMSIS.5.6.0
+                ARM::CMSIS@5.6.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
    * Component: CORE Version: 5.3.0
    * Component: DSP Variant: Library Version: 1.7.0
 
 Package Vendor: NordicSemiconductor
                 http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/NordicSemiconductor.nRF_DeviceFamilyPack.8.40.3.pack
-                NordicSemiconductor.nRF_DeviceFamilyPack.8.40.3
+                NordicSemiconductor::nRF_DeviceFamilyPack@8.40.3
                 Nordic Semiconductor nRF ARM devices Device Family Pack with BSD license.
    * Component: Startup Version: 8.40.3
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_nrf52833_xxaa
-  D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\Core\Include
-  D:\Shawshihe\KEIL\pack\ARM\CMSIS\5.6.0\CMSIS\DSP\Include
-  D:\Shawshihe\KEIL\pack\NordicSemiconductor\nRF_DeviceFamilyPack\8.40.3\Device\Include
+  ./RTE/_nrf52833_xxaa
+  E:/Keil_v5/Packs/ARM/CMSIS/5.6.0/CMSIS/Core/Include
+  E:/Keil_v5/Packs/ARM/CMSIS/5.6.0/CMSIS/DSP/Include
+  E:/Keil_v5/Packs/NordicSemiconductor/nRF_DeviceFamilyPack/8.40.3/Device/Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.3.0
+   * Component: ARM::CMSIS:CORE@5.3.0
 
-   * Component: ARM::CMSIS:DSP:Library:1.7.0
-      Include file:  CMSIS\DSP\Include\arm_math.h
-      Library file:  CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib
+   * Component: ARM::CMSIS:DSP&Library@1.7.0
+      Include file:  CMSIS/DSP/Include/arm_math.h
+      Library file:  CMSIS/DSP/Lib/ARM/arm_cortexM4lf_math.lib
 
-   * Component: NordicSemiconductor::Device:Startup:8.40.3
-      Include file:  Device\Include\system_nrf.h
-      Source file:   Device\Source\system_nrf52.c
-      Include file:  Device\Include\system_nrf52833.h
-      Source file:   Device\Source\arm\arm_startup_nrf52833.s
-Build Time Elapsed:  00:00:12
+   * Component: NordicSemiconductor::Device:Startup@8.40.3
+      Include file:  Device/Include/system_nrf.h
+      Source file:   Device/Source/arm/arm_startup_nrf52833.s
+      Source file:   Device/Source/system_nrf52.c
+      Include file:  Device/Include/system_nrf52833.h
+Build Time Elapsed:  00:00:24
 </pre>
 </body>
 </html>
