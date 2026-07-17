@@ -142,7 +142,24 @@ int main (void){
 //        printf("\r\nSpo2 task created.\r\n");
 //    }
 
+BaseType_t err_spo2 = xTaskCreate(
+        spo2_read,
+        "spo2_thread",
+        SPO2_TASK_STACK_WORDS,
+        NULL,
+        4,
+        NULL
+);
 
+if (err_spo2 != pdPASS)
+{
+    printf("\r\nSpo2 task not created.\r\n");
+    APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+}
+else
+{
+    printf("\r\nSpo2 task created.\r\n");
+}
 
 //		BaseType_t err5 = xTaskCreate(
 //					ble_thread,           
@@ -186,19 +203,19 @@ int main (void){
 //        APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
 //    }
 		
-	BaseType_t err_qmi = xTaskCreate(
-				qmi8658c_read,
-				"qmi8658c_thread",
-				QMI_TASK_STACK_WORDS,
-				NULL,
-				5,
-				NULL
-	);
-	if (err_qmi != pdPASS)
-	{
-			printf("\r\nQMI task not created.\r\n");
-			APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
-	}
+//	BaseType_t err_qmi = xTaskCreate(
+//				qmi8658c_read,
+//				"qmi8658c_thread",
+//				QMI_TASK_STACK_WORDS,
+//				NULL,
+//				5,
+//				NULL
+//	);
+//	if (err_qmi != pdPASS)
+//	{
+//			printf("\r\nQMI task not created.\r\n");
+//			APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
+//	}
 	
 	BaseType_t err_ads = xTaskCreate(
         spi_read,

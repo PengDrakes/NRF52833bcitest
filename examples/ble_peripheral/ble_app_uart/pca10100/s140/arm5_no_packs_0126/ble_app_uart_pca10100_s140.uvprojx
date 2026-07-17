@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -597,6 +598,16 @@
               <FileName>low_power_mode.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\low_power_mode.h</FilePath>
+            </File>
+            <File>
+              <FileName>attention.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\arm5_no_packs\attention.c</FilePath>
+            </File>
+            <File>
+              <FileName>attention.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\arm5_no_packs\attention.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -4079,6 +4090,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -4490,6 +4502,16 @@
               <FileName>low_power_mode.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\low_power_mode.h</FilePath>
+            </File>
+            <File>
+              <FileName>attention.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\arm5_no_packs\attention.c</FilePath>
+            </File>
+            <File>
+              <FileName>attention.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\arm5_no_packs\attention.h</FilePath>
             </File>
           </Files>
         </Group>

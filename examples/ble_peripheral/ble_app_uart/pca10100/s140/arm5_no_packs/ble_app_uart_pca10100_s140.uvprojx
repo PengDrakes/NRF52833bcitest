@@ -615,6 +615,11 @@
               <FileType>5</FileType>
               <FilePath>.\attention.h</FilePath>
             </File>
+            <File>
+              <FileName>interference_test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\interference_test.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4515,6 +4520,11 @@
               <FileName>attention.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\attention.h</FilePath>
+            </File>
+            <File>
+              <FileName>interference_test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\interference_test.h</FilePath>
             </File>
           </Files>
         </Group>

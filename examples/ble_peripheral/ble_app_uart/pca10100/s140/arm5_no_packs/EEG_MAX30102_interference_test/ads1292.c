@@ -34,63 +34,6 @@
 
 
 /*
- * ADS1292R internal-clock output diagnostic.
- *
- * 1 = Enable CLK_EN in CONFIG2.
- *     When CLKSEL is physically high, the ADS1292R internal
- *     oscillator should be observable on U3 pin 17 (CLK).
- *     Expected frequency is approximately 512 kHz.
- *
- * 0 = Disable clock output for normal EEG acquisition.
- *
- * IMPORTANT:
- * This macro only exposes the selected clock on the CLK pin.
- * It does not repair an incorrect CLKSEL hardware connection.
- */
-#define ADS1292_CLOCK_OUTPUT_DIAGNOSTIC  0U
-
-
-/*
- * Valid ADS1292 frame oscilloscope diagnostic.
- *
- * DEBUG pin:
- *     nRF52833 P0.30
- *     E73-2G4M08S1EX module U8 pin 10
- *
- * The schematic leaves P0.30 unused by the current ADS1292,
- * MAX30102 and QMI8658 signal mappings.
- *
- * Operation:
- *     P0.30 toggles only after all of the following succeed:
- *
- *         1. The ADS task receives a DRDY notification.
- *         2. The task reads one complete 9-byte SPI frame.
- *         3. The ADS1292 status high nibble is valid: 0xC.
- *
- * Expected result:
- *
- *     About 125 Hz:
- *         approximately 250 valid frames are processed per second.
- *
- *     About 8 Hz:
- *         approximately 16 valid frames are processed per second.
- *
- * Two GPIO toggles form one complete output period.
- */
-#define ADS1292_VALID_FRAME_SCOPE_ENABLE   0U
-
-/*
- * Formal MAX30102 interference experiment build.
- *
- * P0.30 diagnostic toggling is disabled so the debug GPIO itself
- * does not introduce additional periodic switching noise.
- *
- * ADS1292 sampling, ADSRATE statistics and EEGX logging remain enabled.
- */
-#define ADS1292_VALID_FRAME_SCOPE_PIN      NRF_GPIO_PIN_MAP(0, 30)
-
-
-/*
  * Periodic UART print interval.
  *
  * IMPORTANT:
@@ -155,7 +98,7 @@
 
 #define ADS1292_EEGX_WINDOW_SAMPLES       250U
 #define ADS1292_EEGX_SETTLE_SECONDS       5U
-#define ADS1292_EEGX_QUEUE_LENGTH         12U
+#define ADS1292_EEGX_QUEUE_LENGTH         4U
 #define ADS1292_EEGX_LOGGER_STACK_WORDS   256U
 #define ADS1292_EEGX_LOGGER_PRIORITY      1U
 
@@ -204,24 +147,6 @@ static TaskHandle_t m_ads1292_task_handle = NULL;
 
 /* Number of missed/accumulated DRDY notifications. */
 static volatile uint32_t m_ads1292_overrun_count = 0U;
-
-/* ============================================================
- * Sampling-rate diagnostics
- *
- * These counters distinguish two different failures:
- *
- * 1. drdy is about 15/16 per second:
- *      ADS1292 clock / data-rate problem.
- *
- * 2. drdy is about 250 per second, but valid is about 15/16:
- *      SPI frame alignment / STATUS validation problem.
- * ============================================================ */
-
-static volatile uint32_t m_ads1292_drdy_total = 0U;
-static uint32_t m_ads1292_frame_total = 0U;
-static uint32_t m_ads1292_valid_total = 0U;
-static uint32_t m_ads1292_bad_status_total = 0U;
-static uint32_t m_ads1292_spi_error_total = 0U;
 
 
 /* ============================================================
@@ -279,15 +204,6 @@ static uint32_t minIndex = 0U;
  * Raw EEG interference diagnostic state
  * ============================================================ */
 
-typedef enum
-{
-    ADS1292_LOG_EEGX = 0,
-    ADS1292_LOG_RATE = 1,
-    ADS1292_LOG_BAD_FRAME = 2
-
-} ads1292_log_type_t;
-
-
 typedef struct
 {
     uint32_t cycle;
@@ -301,22 +217,11 @@ typedef struct
     int32_t amplitude_50_x100;
     int32_t amplitude_100_x100;
 
-    uint32_t dt_ticks;
-    uint32_t drdy_delta;
-    uint32_t frame_delta;
-    uint32_t valid_delta;
-    uint32_t bad_delta;
-    uint32_t spi_error_delta;
-    uint32_t bad_total;
-
     uint16_t sample_count;
-
-    uint8_t raw_frame[9];
 
     uint8_t phase;
     uint8_t mode;
     uint8_t settle;
-    uint8_t type;
 
 } ads1292_eegx_record_t;
 
@@ -338,14 +243,6 @@ static float32_t s_eegx_50_real = 0.0f;
 static float32_t s_eegx_50_imag = 0.0f;
 static float32_t s_eegx_100_real = 0.0f;
 static float32_t s_eegx_100_imag = 0.0f;
-
-/* One-second rate-report snapshots. */
-static TickType_t s_rate_last_tick = 0U;
-static uint32_t s_rate_last_drdy = 0U;
-static uint32_t s_rate_last_frame = 0U;
-static uint32_t s_rate_last_valid = 0U;
-static uint32_t s_rate_last_bad = 0U;
-static uint32_t s_rate_last_spi_error = 0U;
 
 /* Five-sample quadrature tables: Fs=250 Hz, f=50/100 Hz. */
 static const float32_t s_eegx_50_cos[5] =
@@ -472,67 +369,29 @@ static void ads1292_eegx_logger_thread(void *pvParameter)
             pdTRUE
         )
         {
-            if (record.type == (uint8_t)ADS1292_LOG_EEGX)
-            {
-                printf(
-                    "EEGX cycle=%lu phase=%u mode=%u settle=%u tick=%lu "
-                    "n=%u mean_x100=%ld rms_x100=%ld p2p_x100=%ld "
-                    "a50_x100=%ld a100_x100=%ld ovr=%lu drop=%lu\r\n",
+            printf(
+                "EEGX cycle=%lu phase=%u mode=%u settle=%u tick=%lu "
+                "n=%u mean_x100=%ld rms_x100=%ld p2p_x100=%ld "
+                "a50_x100=%ld a100_x100=%ld ovr=%lu drop=%lu\r\n",
 
-                    (unsigned long)record.cycle,
-                    (unsigned int)record.phase,
-                    (unsigned int)record.mode,
-                    (unsigned int)record.settle,
-                    (unsigned long)record.tick,
-                    (unsigned int)record.sample_count,
-                    (long)record.mean_x100,
-                    (long)record.rms_x100,
-                    (long)record.p2p_x100,
-                    (long)record.amplitude_50_x100,
-                    (long)record.amplitude_100_x100,
-                    (unsigned long)record.overrun_count,
-                    (unsigned long)record.dropped_records
-                );
-            }
-            else if (record.type == (uint8_t)ADS1292_LOG_RATE)
-            {
-                printf(
-                    "ADSRATE tick=%lu dt=%lu drdy=%lu frame=%lu "
-                    "valid=%lu bad=%lu spierr=%lu ovr=%lu drop=%lu\r\n",
-
-                    (unsigned long)record.tick,
-                    (unsigned long)record.dt_ticks,
-                    (unsigned long)record.drdy_delta,
-                    (unsigned long)record.frame_delta,
-                    (unsigned long)record.valid_delta,
-                    (unsigned long)record.bad_delta,
-                    (unsigned long)record.spi_error_delta,
-                    (unsigned long)record.overrun_count,
-                    (unsigned long)record.dropped_records
-                );
-            }
-            else if (record.type == (uint8_t)ADS1292_LOG_BAD_FRAME)
-            {
-                printf(
-                    "ADSBAD count=%lu tick=%lu "
-                    "rx=%02X %02X %02X %02X %02X %02X %02X %02X %02X\r\n",
-
-                    (unsigned long)record.bad_total,
-                    (unsigned long)record.tick,
-                    record.raw_frame[0],
-                    record.raw_frame[1],
-                    record.raw_frame[2],
-                    record.raw_frame[3],
-                    record.raw_frame[4],
-                    record.raw_frame[5],
-                    record.raw_frame[6],
-                    record.raw_frame[7],
-                    record.raw_frame[8]
-                );
-            }
+                (unsigned long)record.cycle,
+                (unsigned int)record.phase,
+                (unsigned int)record.mode,
+                (unsigned int)record.settle,
+                (unsigned long)record.tick,
+                (unsigned int)record.sample_count,
+                (long)record.mean_x100,
+                (long)record.rms_x100,
+                (long)record.p2p_x100,
+                (long)record.amplitude_50_x100,
+                (long)record.amplitude_100_x100,
+                (unsigned long)record.overrun_count,
+                (unsigned long)record.dropped_records
+            );
         }
     }
 }
+
 
 static bool ads1292_eegx_logger_init(void)
 {
@@ -571,144 +430,6 @@ static bool ads1292_eegx_logger_init(void)
     }
 
     return true;
-}
-
-
-static void ads1292_rate_diag_reset(void)
-{
-    uint32_t drdy_now;
-
-    taskENTER_CRITICAL();
-    drdy_now = m_ads1292_drdy_total;
-    taskEXIT_CRITICAL();
-
-    s_rate_last_tick = xTaskGetTickCount();
-    s_rate_last_drdy = drdy_now;
-    s_rate_last_frame = m_ads1292_frame_total;
-    s_rate_last_valid = m_ads1292_valid_total;
-    s_rate_last_bad = m_ads1292_bad_status_total;
-    s_rate_last_spi_error = m_ads1292_spi_error_total;
-}
-
-
-static void ads1292_rate_maybe_publish(void)
-{
-    ads1292_eegx_record_t record;
-
-    TickType_t now;
-    TickType_t elapsed;
-
-    uint32_t drdy_now;
-    uint32_t frame_now;
-    uint32_t valid_now;
-    uint32_t bad_now;
-    uint32_t spi_error_now;
-
-    if (s_eegx_queue == NULL)
-    {
-        return;
-    }
-
-    now = xTaskGetTickCount();
-
-    if (s_rate_last_tick == 0U)
-    {
-        ads1292_rate_diag_reset();
-        return;
-    }
-
-    elapsed = now - s_rate_last_tick;
-
-    if (elapsed < pdMS_TO_TICKS(1000U))
-    {
-        return;
-    }
-
-    taskENTER_CRITICAL();
-    drdy_now = m_ads1292_drdy_total;
-    taskEXIT_CRITICAL();
-
-    frame_now = m_ads1292_frame_total;
-    valid_now = m_ads1292_valid_total;
-    bad_now = m_ads1292_bad_status_total;
-    spi_error_now = m_ads1292_spi_error_total;
-
-    memset(&record, 0, sizeof(record));
-
-    record.type = (uint8_t)ADS1292_LOG_RATE;
-    record.tick = (uint32_t)now;
-    record.dt_ticks = (uint32_t)elapsed;
-
-    record.drdy_delta = drdy_now - s_rate_last_drdy;
-    record.frame_delta = frame_now - s_rate_last_frame;
-    record.valid_delta = valid_now - s_rate_last_valid;
-    record.bad_delta = bad_now - s_rate_last_bad;
-    record.spi_error_delta = spi_error_now - s_rate_last_spi_error;
-
-    record.overrun_count = m_ads1292_overrun_count;
-    record.dropped_records = s_eegx_dropped_records;
-
-    if (
-        xQueueSend(
-            s_eegx_queue,
-            &record,
-            0U
-        )
-        !=
-        pdTRUE
-    )
-    {
-        s_eegx_dropped_records++;
-    }
-
-    s_rate_last_tick = now;
-    s_rate_last_drdy = drdy_now;
-    s_rate_last_frame = frame_now;
-    s_rate_last_valid = valid_now;
-    s_rate_last_bad = bad_now;
-    s_rate_last_spi_error = spi_error_now;
-}
-
-
-static void ads1292_bad_frame_publish(void)
-{
-    ads1292_eegx_record_t record;
-
-    if (s_eegx_queue == NULL)
-    {
-        return;
-    }
-
-    /* Eight examples are enough to identify byte alignment. */
-    if (m_ads1292_bad_status_total > 8U)
-    {
-        return;
-    }
-
-    memset(&record, 0, sizeof(record));
-
-    record.type = (uint8_t)ADS1292_LOG_BAD_FRAME;
-    record.tick = (uint32_t)xTaskGetTickCount();
-    record.bad_total = m_ads1292_bad_status_total;
-
-    memcpy(
-        record.raw_frame,
-        ads1292_data,
-        sizeof(record.raw_frame)
-    );
-
-    if (
-        xQueueSend(
-            s_eegx_queue,
-            &record,
-            0U
-        )
-        !=
-        pdTRUE
-    )
-    {
-        s_eegx_dropped_records++;
-    }
 }
 
 
@@ -773,7 +494,6 @@ static void ads1292_eegx_publish(void)
 
     memset(&record, 0, sizeof(record));
 
-    record.type = (uint8_t)ADS1292_LOG_EEGX;
     record.cycle = g_max30102_test_cycle;
     record.phase = g_max30102_test_phase;
     record.mode = g_max30102_test_mode;
@@ -907,8 +627,7 @@ static void ads1292_print_pinmap(void)
         "MOSI=%lu "
         "CS=%lu "
         "START=%lu "
-        "RESET=%lu "
-        "FRAME_DBG=%lu\r\n",
+        "RESET=%lu\r\n",
 
         (unsigned long)ADS1292_DRDY_PIN,
         (unsigned long)ADS1292_MISO_PIN,
@@ -916,8 +635,7 @@ static void ads1292_print_pinmap(void)
         (unsigned long)ADS1292_MOSI_PIN,
         (unsigned long)ADS1292_CS_PIN,
         (unsigned long)ADS1292_START_PIN,
-        (unsigned long)ADS1292_RESET_PIN,
-        (unsigned long)ADS1292_VALID_FRAME_SCOPE_PIN
+        (unsigned long)ADS1292_RESET_PIN
     );
 }
 
@@ -1114,23 +832,6 @@ void device_init(void)
         ADS1292_DRDY_PIN,
         NRF_GPIO_PIN_NOPULL
     );
-
-
-#if ADS1292_VALID_FRAME_SCOPE_ENABLE
-
-    /*
-     * P0.30 is the valid-frame oscilloscope diagnostic output.
-     * Start low before sampling begins.
-     */
-    nrf_gpio_cfg_output(
-        ADS1292_VALID_FRAME_SCOPE_PIN
-    );
-
-    nrf_gpio_pin_clear(
-        ADS1292_VALID_FRAME_SCOPE_PIN
-    );
-
-#endif
 
     /* --------------------------------------------------------
      * Safe initial state
@@ -1579,41 +1280,26 @@ void ads1292_init(void)
 #if ADS1292_INTERNAL_TEST
 
     /*
-     * Internal reference enabled.
-     * Internal 1 Hz test signal enabled.
-     *
-     * 0xA3: normal internal-test configuration.
-     * 0xAB: same configuration with CLK_EN = 1.
+     * Internal reference enabled
+     * Test signal enabled
+     * 1 Hz square wave
      */
     err =
         ads1292_write_verify(
             ADS1292_REG_CONFIG2,
-
-#if ADS1292_CLOCK_OUTPUT_DIAGNOSTIC
-            0xABU
-#else
             0xA3U
-#endif
         );
 
 #else
 
     /*
-     * Internal reference enabled.
-     * Test signal disabled.
-     *
-     * 0xA0: normal EEG configuration.
-     * 0xA8: same configuration with CLK_EN = 1.
+     * Internal reference enabled
+     * Test signal disabled
      */
     err =
         ads1292_write_verify(
             ADS1292_REG_CONFIG2,
-
-#if ADS1292_CLOCK_OUTPUT_DIAGNOSTIC
-            0xA8U
-#else
             0xA0U
-#endif
         );
 
 #endif
@@ -1629,22 +1315,6 @@ void ads1292_init(void)
 
         return;
     }
-
-#if ADS1292_CLOCK_OUTPUT_DIAGNOSTIC
-
-    printf(
-        "ADS CLOCK DIAG: CLK_EN=1; "
-        "measure U3 pin17, expected about 512 kHz "
-        "only when CLKSEL is physically high\r\n"
-    );
-
-#else
-
-    printf(
-        "ADS CLOCK DIAG: CLK_EN=0\r\n"
-    );
-
-#endif
 
     /*
      * Allow internal reference to settle.
@@ -2303,30 +1973,20 @@ static void drdy_isr_handler(
     BaseType_t higher_priority_task_woken =
         pdFALSE;
 
-    /*
-     * This input is configured with
-     * NRFX_GPIOTE_CONFIG_IN_SENSE_HITOLO(true),
-     * so a callback for P0.31 is already a falling-edge DRDY event.
-     */
-    (void)action;
-
-    if (pin != ADS1292_DRDY_PIN)
+    if ((pin == ADS1292_DRDY_PIN) &&
+        (action == NRF_GPIOTE_POLARITY_HITOLO))
     {
-        return;
-    }
+        if (m_ads1292_task_handle != NULL)
+        {
+            vTaskNotifyGiveFromISR(
+                m_ads1292_task_handle,
+                &higher_priority_task_woken
+            );
 
-    m_ads1292_drdy_total++;
-
-    if (m_ads1292_task_handle != NULL)
-    {
-        vTaskNotifyGiveFromISR(
-            m_ads1292_task_handle,
-            &higher_priority_task_woken
-        );
-
-        portYIELD_FROM_ISR(
-            higher_priority_task_woken
-        );
+            portYIELD_FROM_ISR(
+                higher_priority_task_woken
+            );
+        }
     }
 }
 
@@ -2609,16 +2269,6 @@ void spi_read(
         "ADS1292 DRDY IRQ OK\r\n"
     );
 
-
-#if ADS1292_VALID_FRAME_SCOPE_ENABLE
-
-    printf(
-        "VALID FRAME SCOPE: probe P0.30/U8-pin10; "
-        "125Hz=250 valid frames/s, 8Hz=16 valid frames/s\r\n"
-    );
-
-#endif
-
     ads1292_print_gpio_diag(
         "After DRDY IRQ init"
     );
@@ -2649,18 +2299,6 @@ void spi_read(
     printf(
         "ADS1292 sampling started\r\n"
     );
-
-    m_ads1292_frame_total = 0U;
-    m_ads1292_valid_total = 0U;
-    m_ads1292_bad_status_total = 0U;
-    m_ads1292_spi_error_total = 0U;
-    m_ads1292_overrun_count = 0U;
-
-    taskENTER_CRITICAL();
-    m_ads1292_drdy_total = 0U;
-    taskEXIT_CRITICAL();
-
-    ads1292_rate_diag_reset();
 
     /* --------------------------------------------------------
      * Start Attention
@@ -2707,8 +2345,6 @@ void spi_read(
                 "At DRDY timeout"
             );
 
-            ads1292_rate_maybe_publish();
-
             continue;
         }
 
@@ -2734,14 +2370,15 @@ void spi_read(
 
         if (err != NRF_SUCCESS)
         {
-            m_ads1292_spi_error_total++;
+            printf(
+                "ADS1292 read failed, "
+                "err=%lu\r\n",
 
-            ads1292_rate_maybe_publish();
+                (unsigned long)err
+            );
 
             continue;
         }
-
-        m_ads1292_frame_total++;
 
         /* ----------------------------------------------------
          * Validate STATUS high nibble
@@ -2749,31 +2386,10 @@ void spi_read(
 
         if ((ads1292_data[0] & 0xF0U) != 0xC0U)
         {
-            m_ads1292_bad_status_total++;
-
-            ads1292_bad_frame_publish();
-            ads1292_rate_maybe_publish();
-
             continue;
         }
 
-        m_ads1292_valid_total++;
         sample_count++;
-
-#if ADS1292_VALID_FRAME_SCOPE_ENABLE
-
-        /*
-         * Toggle only after one complete SPI frame has been read
-         * and the ADS1292 status word has passed validation.
-         *
-         * 250 valid frames/second -> about 125 Hz on P0.30.
-         * 16 valid frames/second  -> about 8 Hz on P0.30.
-         */
-        nrf_gpio_pin_toggle(
-            ADS1292_VALID_FRAME_SCOPE_PIN
-        );
-
-#endif
 
         /* ====================================================
          * CH1
@@ -3042,8 +2658,6 @@ void spi_read(
         }
 
 #endif /* ADS1292_PERIODIC_EEG_PRINT_ENABLE */
-
-        ads1292_rate_maybe_publish();
     }
 }
 
